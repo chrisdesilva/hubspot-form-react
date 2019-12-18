@@ -8,7 +8,7 @@
 		"url": "https://github.com/chrisdesilva/hubspot-form-react"
 	},
 	"peerDependencies": {
-		"react": "^16.4.0"
+		"react": "^16.0.0"
 	},
 	"scripts": {
 		"start": "webpack --watch",
@@ -17,7 +17,8 @@
 	"author": "cdesilva",
 	"license": "ISC",
 	"dependencies": {
-		"react": "^16.12.0",
+		"react": "^16.0.0",
+		"react-dom": "^16.12.0",
 		"webpack": "^4.41.3"
 	},
 	"devDependencies": {

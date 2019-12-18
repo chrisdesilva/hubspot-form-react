@@ -36,23 +36,23 @@ const HubspotFormReact = (props) => {
 				{
 					name: `email`,
 					value: `${email}`
-				},
-				{
-					name: `${props.name2}`,
-					value: `${props.value2}`
-				},
-				{
-					name: `${props.name3}`,
-					value: `${props.value3}`
-				},
-				{
-					name: `${props.name4}`,
-					value: `${props.value4}`
-				},
-				{
-					name: `${props.name5}`,
-					value: `${props.value5}`
 				}
+				// {
+				// 	name: `${props.name2}`,
+				// 	value: `${props.value2}`
+				// },
+				// {
+				// 	name: `${props.name3}`,
+				// 	value: `${props.value3}`
+				// },
+				// {
+				// 	name: `${props.name4}`,
+				// 	value: `${props.value4}`
+				// },
+				// {
+				// 	name: `${props.name5}`,
+				// 	value: `${props.value5}`
+				// }
 			],
 			context: {
 				hutk: hsCookie.hubspotutk,
@@ -88,16 +88,21 @@ const HubspotFormReact = (props) => {
 				value={email}
 				required
 			/>
-			<div className="hidden">
+			{/* <div style={{ display: 'none' }}>
 				<input type="text" name={props.name2} value={props.value2} readOnly />
 				<input type="text" name={props.name3} value={props.value3} readOnly />
 				<input type="text" name={props.name4} value={props.value4} readOnly />
 				<input type="text" name={props.name5} value={props.value5} readOnly />
-			</div>
+			</div> */}
 			{thankYou ? (
 				<p>{props.submitMessage}</p>
 			) : (
-				<input className={submitButton.class} value={submitButton.value} id={submitButton.id} type="submit" />
+				<input
+					className={props.submitButtonClass}
+					value={props.submitButtonValue}
+					id={props.submitButtonId}
+					type="submit"
+				/>
 			)}
 		</form>
 	);

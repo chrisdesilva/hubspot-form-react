@@ -30,30 +30,15 @@ const HubspotFormReact = (props) => {
 			return cookies;
 		}, {});
 
-		//   field names are all set to match internal values on Hubspot
+		const emailFields = [ { name: 'email', value: `${email}` } ];
+		const customFields = props.fields.map((field) => {
+			return {
+				name: field.name,
+				value: field.value
+			};
+		});
 		const data = {
-			fields: [
-				{
-					name: `email`,
-					value: `${email}`
-				}
-				// {
-				// 	name: `${props.name2}`,
-				// 	value: `${props.value2}`
-				// },
-				// {
-				// 	name: `${props.name3}`,
-				// 	value: `${props.value3}`
-				// },
-				// {
-				// 	name: `${props.name4}`,
-				// 	value: `${props.value4}`
-				// },
-				// {
-				// 	name: `${props.name5}`,
-				// 	value: `${props.value5}`
-				// }
-			],
+			fields: emailFields.concat(customFields),
 			context: {
 				hutk: hsCookie.hubspotutk,
 				pageUri: `${props.pageUri}`,
@@ -88,12 +73,11 @@ const HubspotFormReact = (props) => {
 				value={email}
 				required
 			/>
-			{/* <div style={{ display: 'none' }}>
-				<input type="text" name={props.name2} value={props.value2} readOnly />
-				<input type="text" name={props.name3} value={props.value3} readOnly />
-				<input type="text" name={props.name4} value={props.value4} readOnly />
-				<input type="text" name={props.name5} value={props.value5} readOnly />
-			</div> */}
+			<div style={{ display: 'none' }}>
+				{props.fields.map((field) => {
+					return <input type={field.type} name={field.name} value={field.value} readOnly />;
+				})}
+			</div>
 			{thankYou ? (
 				<p>{props.submitMessage}</p>
 			) : (

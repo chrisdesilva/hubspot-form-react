@@ -11,7 +11,7 @@ import HubspotFormReact from 'hubspot-form-react`
 <HubspotFormReact 
   portalId="hubspot_portal_id"  required
   formId="hubspot_form_id"  required
-  fields={[   required - set to empty array if no fields are needed
+  fields={[   // optional for any other custom fields
     {
       name: "name",   // should match name in your Hubspot form
       value: "value",   // default value you want to set
@@ -23,5 +23,7 @@ import HubspotFormReact from 'hubspot-form-react`
   submitButtonClass="class"   optional for styling submit button
   submitButtonId="id"   optional for targeting submit button by ID
   submitButtonValue="value"   optional for adding specific text to submit button
+  onSubmit={submitFunction} // optional for adding any submit events
+  divClass="class" // optional styling for custom fields
 />
 ```

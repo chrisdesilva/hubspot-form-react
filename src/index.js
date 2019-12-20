@@ -4,6 +4,7 @@ const HubspotFormReact = (props) => {
 	const [ email, setEmail ] = useState('');
 	const [ thankYou, showThankYou ] = useState(false);
 	const [ IP, setIP ] = useState('');
+	const dataFields = [ { name: 'email', value: `${email}` } ];
 
 	// Get IP address from client for Hubspot analytics
 	async function fetchIP() {
@@ -13,7 +14,16 @@ const HubspotFormReact = (props) => {
 
 	useEffect(() => {
 		fetchIP();
-	});
+		if (props.fields) {
+			const customFields = props.fields.map((field) => {
+				return {
+					name: field.name,
+					value: field.value
+				};
+			});
+			dataFields.concat(customFields);
+		}
+	}, []);
 
 	const handleChange = (e) => {
 		setEmail(e.target.value);
@@ -30,15 +40,8 @@ const HubspotFormReact = (props) => {
 			return cookies;
 		}, {});
 
-		const emailFields = [ { name: 'email', value: `${email}` } ];
-		const customFields = props.fields.map((field) => {
-			return {
-				name: field.name,
-				value: field.value
-			};
-		});
 		const data = {
-			fields: emailFields.concat(customFields),
+			fields: dataFields,
 			context: {
 				hutk: hsCookie.hubspotutk,
 				pageUri: `${props.pageUri}`,
@@ -59,6 +62,7 @@ const HubspotFormReact = (props) => {
 			.catch((error) => console.log('error: ', error));
 		showThankYou(true);
 		setEmail('');
+		props.onSubmit();
 	};
 
 	return (
@@ -73,11 +77,22 @@ const HubspotFormReact = (props) => {
 				value={email}
 				required
 			/>
-			<div style={{ display: 'none' }}>
-				{props.fields.map((field) => {
-					return <input type={field.type} name={field.name} value={field.value} readOnly />;
-				})}
-			</div>
+			{props.fields && (
+				<div className={props.divClass}>
+					{props.fields.map((field) => {
+						return (
+							<input
+								type={field.type}
+								id={field.name}
+								name={field.name}
+								value={field.value}
+								placeholder={field.name}
+								readOnly
+							/>
+						);
+					})}
+				</div>
+			)}
 			{thankYou ? (
 				<p>{props.submitMessage}</p>
 			) : (
